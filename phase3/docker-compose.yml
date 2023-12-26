@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  drupal:
+    build: .
+    image: alagumuthiah/custom-drupal
+    ports:
+      - "8080:80"
+    depends_on:
+      - postgres
+    environment:
+      - POSTGRES_PASSWORD:password
+  postgres:
+    image: postgres:10
+    environment:
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+    volumes:
+      - drupal-data:/var/lib/postgresql/data
+
+volumes:
+  drupal-data:
